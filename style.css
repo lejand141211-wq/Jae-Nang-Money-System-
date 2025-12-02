@@ -1,0 +1,20 @@
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;background:#e8f2ff;color:#023047;margin:0;padding:20px}
+.container{max-width:900px;margin:0 auto}
+header{margin-bottom:10px}
+h1{margin:0 0 10px 0;color:#012a4a}
+.card{background:white;padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(2,48,71,0.08);margin-bottom:16px}
+input{width:100%;padding:10px;border:1px solid #d7e6fb;border-radius:6px;margin:8px 0}
+button{padding:10px 12px;border-radius:8px;border:0;background:#0077cc;color:white;cursor:pointer}
+button.secondary{background:#6c757d}
+button.primary{background:#0077cc}
+.muted{color:#6c7680;font-size:0.95em}
+.captcha{display:flex;gap:8px;align-items:center}
+#captchaNum{background:#012a4a;color:white;padding:8px 10px;border-radius:6px;font-weight:bold}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.actions button{display:block;margin-bottom:8px;width:160px}
+.store{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.item{border:1px solid #d7e6fb;padding:10px;border-radius:8px;width:calc(50% - 8px);background:#f8fbff}
+.log{background:#f7f9fb;padding:10px;border-radius:6px;white-space:pre-wrap;max-height:280px;overflow:auto}
+footer{text-align:center;color:#6c7680;margin-top:8px}
+@media(max-width:600px){.top-row{flex-direction:column}.actions button{width:100%}.item{width:100%}}
