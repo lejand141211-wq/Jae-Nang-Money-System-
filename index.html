@@ -1,79 +1,86 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>재낭머니 시스템</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>재낭머니 시스템</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>💙 재낭머니 시스템 (로블록스 테마)</h1>
-    </header>
+<div class="wrap">
+  <h1>재낭머니 시스템</h1>
 
-    <section id="login" class="card">
-      <h2>로그인</h2>
-      <input id="username" placeholder="아이디" />
-      <input id="password" placeholder="비밀번호" type="password" />
-      <div id="captchaBox" class="captcha">
-        <span id="captchaNum" aria-hidden="true"></span>
-        <input id="captchaInput" placeholder="숫자 입력" />
-      </div>
-      <button onclick="login()" class="primary">로그인</button>
-      <p class="muted">회원이 아니신가요? <a href="#" onclick="showRegister()">회원가입</a></p>
-    </section>
-
-    <section id="register" class="card" style="display:none;">
-      <h2>회원가입</h2>
-      <input id="regUser" placeholder="아이디" />
-      <input id="regPass" placeholder="비밀번호" type="password" />
-      <button onclick="register()" class="primary">가입하기</button>
-      <p class="muted"><a href="#" onclick="showLogin()">로그인으로 돌아가기</a></p>
-    </section>
-
-    <section id="main" class="card" style="display:none;">
-      <div class="top-row">
-        <div>
-          <h2 id="welcomeText">안녕하세요</h2>
-          <p>보유 재낭머니: <strong id="moneyDisplay">0</strong></p>
-          <p id="attendanceStatus" class="muted"></p>
-        </div>
-        <div class="actions">
-          <button onclick="attendance()" title="오늘 출석">출석체크</button>
-          <button onclick="openShop()">상점 보기</button>
-          <button onclick="showRank()">랭킹 보기</button>
-          <button onclick="logout()">로그아웃</button>
-        </div>
-      </div>
-
-      <div id="store" class="store"></div>
-    </section>
-
-    <section id="shop" class="card" style="display:none;">
-      <h2>상점</h2>
-      <div id="storeList"></div>
-      <button onclick="closeShop()" class="secondary">뒤로가기</button>
-    </section>
-
-    <section id="rank" class="card" style="display:none;">
-      <h2>랭킹</h2>
-      <div id="rankList"></div>
-      <button onclick="closeRank()" class="secondary">뒤로가기</button>
-    </section>
-
-    <section id="admin" class="card" style="display:none;">
-      <h2>관리자 페이지</h2>
-      <h3>회원 목록 & 잔액</h3>
-      <pre id="userList" class="log"></pre>
-      <h3>구매 내역</h3>
-      <pre id="logBox" class="log"></pre>
-      <button onclick="downloadLogs()" class="primary">구매 로그 CSV로 다운로드</button>
-      <button onclick="showAllUsers()" class="secondary">새로고침</button>
-    </section>
-
-    <footer class="muted">© 재낭머니 시스템</footer>
+  <!-- 회원가입 -->
+  <div id="signupBox" class="box">
+    <h2>회원가입</h2>
+    <input id="nickname" placeholder="닉네임" />
+    <input id="password" placeholder="비밀번호" type="password" />
+    <input id="captcha" placeholder="로봇이 아닙니까? 숫자: ???" />
+    <button onclick="signup()">회원가입</button>
   </div>
 
-  <script src="script.js"></script>
+  <!-- 로그인 -->
+  <div id="loginBox" class="box hidden">
+    <h2>로그인</h2>
+    <input id="loginNick" placeholder="닉네임" />
+    <input id="loginPw" placeholder="비밀번호" type="password" />
+    <button onclick="login()">로그인</button>
+  </div>
+
+  <!-- 메인 화면 -->
+  <div id="mainBox" class="box hidden">
+    <h2 id="welcomeText"></h2>
+    <p>보유 재낭머니: <strong><span id="moneyDisplay">0</span></strong></p>
+
+    <div class="buttons">
+      <button onclick="attendance()">출석체크 (+10)</button>
+      <button onclick="openShop()">상점</button>
+      <button onclick="showRank()">랭킹</button>
+      <button onclick="openGames()">미니게임</button>
+      <button onclick="logout()">로그아웃</button>
+    </div>
+
+    <div id="adminMenu" class="admin box hidden">
+      <h3>관리자 메뉴</h3>
+      <button onclick="showLogs()">구매 내역 보기</button>
+      <button onclick="exportData()">유저 데이터 내보내기</button>
+    </div>
+  </div>
+
+  <!-- 상점 -->
+  <div id="shopBox" class="box hidden">
+    <h2>상점</h2>
+    <button onclick="buyItem('이벤트 우선참가권',50)">이벤트 우선참가권 (50)</button>
+    <button onclick="buyItem('촬영 참여권',60)">촬영 참여권 (60)</button>
+    <button onclick="buyItem('로블록스 친추권',80)">로블록스 친추권 (80)</button>
+    <button onclick="buyRandomBox()">랜덤박스 (100)</button>
+    <button onclick="closeShop()">뒤로가기</button>
+  </div>
+
+  <!-- 랭킹 -->
+  <div id="rankBox" class="box hidden">
+    <h2>랭킹</h2>
+    <div id="rankList"></div>
+    <button onclick="closeRank()">뒤로가기</button>
+  </div>
+
+  <!-- 구매 로그 -->
+  <div id="logBox" class="box hidden">
+    <h2>구매 내역</h2>
+    <div id="logList"></div>
+    <button onclick="closeLogs()">뒤로가기</button>
+  </div>
+
+  <!-- 게임 메뉴 -->
+  <div id="gameMenu" class="box hidden">
+    <h2>미니게임</h2>
+    <button onclick="openGame('games/click-game.html')">클릭 속도 게임</button>
+    <button onclick="openGame('games/color-game.html')">색상 맞추기 게임</button>
+    <button onclick="openGame('games/quiz-game.html')">퀴즈 게임</button>
+    <button onclick="closeGames()">뒤로가기</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

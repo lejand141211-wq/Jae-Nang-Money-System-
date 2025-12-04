@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>클릭 속도 게임</title><link rel="stylesheet" href="../style.css"></head><body>
+<h2>클릭 속도 게임</h2>
+<p>10초 안에 최대한 많이 클릭하세요! (게임이 끝나면 보상 자동 적용)</p>
+<p>남은시간: <span id="t">10</span>s</p>
+<p>점수: <span id="s">0</span></p>
+<button id="btn">클릭!</button>
+<script>
+var time=10; var score=0; var btn=document.getElementById('btn'); var tEl=document.getElementById('t'); var sEl=document.getElementById('s');
+btn.onclick=function(){ score++; sEl.innerText=score; };
+var timer=setInterval(function(){ time--; tEl.innerText=time; if(time<=0){ clearInterval(timer); var reward = Math.floor(score/2); try{ if(window.opener && window.opener.gameReward) window.opener.gameReward(reward, null); }catch(e){} alert('게임 종료! 점수:'+score+' 보상:'+reward+' 재낭머니'); window.close(); } },1000);
+</script></body></html>

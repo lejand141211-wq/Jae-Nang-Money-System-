@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>퀴즈 게임</title><link rel="stylesheet" href="../style.css"></head><body>
+<h2>퀴즈 게임</h2>
+<p id="q">대한민국의 수도는?</p>
+<button onclick="ans('서울')">서울</button>
+<button onclick="ans('부산')">부산</button>
+<button onclick="ans('대구')">대구</button>
+<script>
+function ans(a){ if(a==='서울'){ try{ if(window.opener && window.opener.gameReward) window.opener.gameReward(20, null); }catch(e){} alert('정답! 20 재낭머니 지급'); window.close(); } else alert('틀림'); }
+</script></body></html>

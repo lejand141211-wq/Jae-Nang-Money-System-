@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>색상 맞추기 게임</title><link rel="stylesheet" href="../style.css"></head><body>
+<h2>색상 맞추기 게임</h2>
+<p id="prompt">버튼에 표시된 색 이름과 텍스트 색이 다르면 클릭하세요!</p>
+<div id="buttons"></div>
+<p>점수: <span id="score">0</span></p>
+<script>
+var colors = ['빨강','파랑','초록','노랑','보라'];
+var score=0;
+function randColor(){ return colors[Math.floor(Math.random()*colors.length)]; }
+function makeRound(){
+  var name = randColor();
+  var actual = randColor();
+  var btns = document.getElementById('buttons'); btns.innerHTML='';
+  for(var i=0;i<3;i++){
+    var c = randColor();
+    var b = document.createElement('button');
+    b.innerText = (i===0?name:c);
+    b.style.background=''; b.onclick=(function(choice){ return function(){ check(choice); }; })( (i===0)?actual: c );
+    btns.appendChild(b);
+  }
+  document.getElementById('prompt').innerText = '찾기: 텍스트 "'+name+'"와 실제 색 "'+actual+'"';
+}
+function check(choice){
+  if(choice===document.getElementById('prompt').innerText.split('"')[3]){ score+=10; alert('정답! +10'); }
+  else alert('틀림');
+  document.getElementById('score').innerText=score;
+  if(score>=30){ try{ if(window.opener && window.opener.gameReward) window.opener.gameReward(20,null); }catch(e){} alert('게임 클리어! 보상 20 재낭머니'); window.close(); }
+  makeRound();
+}
+makeRound();
+</script></body></html>
